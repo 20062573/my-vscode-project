@@ -1,17 +1,16 @@
-function processInput() {
-  const input = document.getElementById("input").value;
-  const [factorsStr, multiplesStr] = input.split(" : ");
-  const factors = toNumbers(factorsStr);
-  const multiples = toNumbers(multiplesStr);
-  const result = sumOfMultiples(factors, multiples);
-  const output = `${result} : ${factorsStr} : ${multiplesStr}`;
-  document.getElementById("output").innerText = output;
+function processInput(input) {
+  let parts = input.split(" : ");
+  let factors = parts[0].split(" ").map(Number);
+  let multiples = parts[1].split(" ");
+
+  let sumFactors = 0;
+  for (let i = 0; i < factors.length; i++) {
+    sumFactors += factors[i];
+  }
+
+  let output = sumFactors + " : " + factors.join(" ") + " : " + multiples.join(" ");
+  return output;
 }
-function toNumbers(str) {
-  return str.split(" ").map(Number);
-}
-function sumOfMultiples(factors, multiples) {
-  return multiples
-    .filter(num => factors.some(f => num % f === 0))
-    .reduce((sum, num) => sum + num, 0);
-}
+
+let input = "3 5 : 1 2 3 4 5 6 7 8 9";
+console.log(processInput(input));
